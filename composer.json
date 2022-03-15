@@ -1,0 +1,20 @@
+{
+    "name": "izisaurio/inn-response",
+    "description": "A collection of simple PHP response helpers",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "izisaurio",
+            "email": "izi.isaac@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Inn\\Response\\": "lib/"
+        }
+    },
+	"require-dev": {
+		"smarty/smarty": "^v4.1.0"
+	}
+}
