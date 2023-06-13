@@ -19,16 +19,26 @@ class Redirect extends Response
 	private $url;
 
 	/**
+	 * Redirection http code
+	 *
+	 * @access	private
+	 * @var		int
+	 */
+	private $code;
+
+	/**
 	 * Constructor
 	 *
 	 * Sets the url
 	 *
 	 * @access	public
 	 * @param	string	$url	Redirection url
+	 * @param	int		$code	Http recirection code
 	 */
-	public function __construct($url)
+	public function __construct($url, $code = 302)
 	{
 		$this->url = $url;
+		$this->code = $code;
 	}
 
 	/**
@@ -38,7 +48,7 @@ class Redirect extends Response
 	 */
 	public function send()
 	{
-		header("Location: {$this->url}", true, 302);
+		header("Location: {$this->url}", true, $this->code);
 		exit();
 	}
 }
