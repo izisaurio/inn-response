@@ -19,6 +19,14 @@ class Json extends Response
 	private $json;
 
 	/**
+	 * Json flag value
+	 * 
+	 * @access	private
+	 * @var		int
+	 */
+	private $flag = JSON_NUMERIC_CHECK;
+
+	/**
 	 * Constructor
 	 *
 	 * Sets the json content
@@ -36,6 +44,22 @@ class Json extends Response
 	}
 
 	/**
+	 * Set numeric check
+	 * 
+	 * @access	public
+	 * @param	bool	$numberStringAsNumber	Encode numeric strings as numbers
+	 * @return	Json
+	 */
+	public function setNumberStringAsNumber($numberStringAsNumber = true) {
+		if ($numberStringAsNumber) {			
+			$this->flag = JSON_NUMERIC_CHECK;
+			return $this;
+		}
+		$this->flag = 0;
+		return $this;
+	}
+
+	/**
 	 * Send response and terminate script
 	 *
 	 * @access	public
@@ -44,7 +68,7 @@ class Json extends Response
 	{
 		$message = $this->messages[$this->code];
 		header("{$this->protocol} {$this->code} {$message}");
-		echo json_encode($this->json, JSON_NUMERIC_CHECK);
+		echo json_encode($this->json, $this->flag);
 		exit();
 	}
 }
