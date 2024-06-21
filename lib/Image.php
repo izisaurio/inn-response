@@ -32,16 +32,20 @@ class Image extends Response
 	 * Sets image path
 	 *
 	 * @access	public
-	 * @param	string	$path	Image path
-	 * @param	string	$mime	Mime path
+	 * @param	string	$path		Image path
+	 * @param	string	$mime		Mime path
+	 * @param	string	$filesize	Filesize if null is calculated internally
 	 */
-	public function __construct($path, $mime)
+	public function __construct($path, $mime, $filesize = null)
 	{
 		$this->path = $path;
 		$this->mime = $mime;
+		if (!isset($filesize)) {
+			$filesize = filesize($path);
+		}
 		$this->addHeader('Content-Type', $this->mime)->addHeader(
 			'Content-Length',
-			filesize($this->path)
+			$filesize
 		);
 	}
 
