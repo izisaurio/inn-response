@@ -3,7 +3,7 @@
 namespace Inn\Response;
 
 /**
- * Sends a json response
+ * Sends an image response from a path
  *
  * @author	izisuario
  * @version	1
@@ -38,6 +38,9 @@ class Image extends Response
 	 */
 	public function __construct($path, $mime, $filesize = null)
 	{
+		if (!file_exists($path)) {
+			throw new FileNotFoundException($path);
+		}
 		$this->path = $path;
 		$this->mime = $mime;
 		if (!isset($filesize)) {

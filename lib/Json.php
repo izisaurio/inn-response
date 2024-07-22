@@ -3,7 +3,7 @@
 namespace Inn\Response;
 
 /**
- * Sends a json response
+ * Sends a json response from an array
  *
  * @author	izisuario
  * @version	1
