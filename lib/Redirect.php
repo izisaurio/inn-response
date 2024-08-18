@@ -8,7 +8,7 @@ namespace Inn\Response;
  * @author	izisuario
  * @version	1
  */
-class Redirect extends Response
+class Redirect
 {
 	/**
 	 * Redirection url
