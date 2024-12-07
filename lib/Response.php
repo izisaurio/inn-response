@@ -136,10 +136,10 @@ class Response
 	{
 		if (empty($params)) {
 			header("{$type}:{$value}");
-			return $this;
+		} else {
+			$query = urldecode(http_build_query($params, '', ';'));
+			header("{$type}:{$value}; $query");
 		}
-		$query = urldecode(http_build_query($params, '', ';'));
-		header("{$type}:{$value}; $query");
 		return $this;
 	}
 }
