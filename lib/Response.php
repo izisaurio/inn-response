@@ -8,7 +8,7 @@ namespace Inn\Response;
  * @author	izisaurio
  * @version	1
  */
-class Response
+abstract class Response
 {
 	/**
 	 * Response code
@@ -142,4 +142,12 @@ class Response
 		}
 		return $this;
 	}
+
+	/**
+	 * Send response and terminate script
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	abstract public function send();
 }
