@@ -3,12 +3,12 @@
 namespace Inn\Response;
 
 /**
- * Sends a document (file) response
+ * Sends a external document response
  *
  * @author	izisuario
  * @version	1
  */
-class Document extends Response
+class ExternalDocument extends Response
 {
     /**
      * File path
@@ -29,7 +29,7 @@ class Document extends Response
     /**
      * Constructor
      *
-     * Sets document path, mime type and filename
+     * Sets document path, mime type and filename but checks the file exists from external source
      *
      * @access	public
      * @param	string	$path		    Document path
@@ -40,9 +40,10 @@ class Document extends Response
      */
     public function __construct($path, $mime, $filename, $disposition = 'inline', $filesize = null)
     {
-		if (!file_exists($path)) {
-			throw new FileNotFoundException($path);
-		}
+        $headers = get_headers($path, 1);
+		if (!$headers || strpos($headers[0], '200') === false) {
+            throw new FileNotFoundException($path);
+        }
         $this->path = $path;
         $this->mime = $mime;
         if (!isset($filesize)) {
