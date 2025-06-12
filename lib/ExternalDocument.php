@@ -36,19 +36,20 @@ class ExternalDocument extends Response
      * @param	string	$mime		    Mime path
      * @param   string  $filename       Filename
      * @param	string	$disposition	Content disposition
-     * @param	string	$filesize	    Filesize if null is calculated internally
      */
-    public function __construct($path, $mime, $filename, $disposition = 'inline', $filesize = null)
+    public function __construct($path, $mime, $filename, $disposition = 'inline')
     {
         $headers = get_headers($path, 1);
 		if (!$headers || strpos($headers[0], '200') === false) {
             throw new FileNotFoundException($path);
         }
+        
+        //Get filesize from headers
+        $contentLength = $headers['Content-Length'];
+        $filesize = is_array($contentLength) ? end($contentLength) : $contentLength;
+
         $this->path = $path;
         $this->mime = $mime;
-        if (!isset($filesize)) {
-            $filesize = filesize($path);
-        }
         $this->addHeader('Content-Type', $this->mime)
             ->addHeader('Content-Length', $filesize)
             ->addHeader('Content-Disposition', "{$disposition}; filename={$filename}");
