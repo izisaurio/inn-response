@@ -4,6 +4,6 @@ require '../vendor/autoload.php';
 
 use Inn\Response\ExternalDocument;
 
-$response = new ExternalDocument('external_mp3_url_here.mp3', 'audio/mpeg', 'audio.mp3');
+$response = new ExternalDocument('https://kleepo.sfo3.digitaloceanspaces.com/clips/clip_1/clip.mp4', 'audio/mpeg', 'audio.mp3');
 
 $response->send();

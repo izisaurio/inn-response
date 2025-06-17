@@ -16,5 +16,8 @@
     },
 	"require-dev": {
 		"smarty/smarty": "^v4.1.0"
-	}
+	},
+    "require": {
+        "izisaurio/lite-request": "^1.0"
+    }
 }

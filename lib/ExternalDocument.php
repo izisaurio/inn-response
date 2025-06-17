@@ -2,6 +2,8 @@
 
 namespace Inn\Response;
 
+use LiteRequest\Request;
+
 /**
  * Sends a external document response
  *
@@ -19,6 +21,14 @@ class ExternalDocument extends Response
     private $path;
 
     /**
+     * Data to be echoed
+     * 
+     * @access  private
+     * @var     string
+     */
+    private $data;
+
+    /**
      * Image mime type
      *
      * @access	public
@@ -34,25 +44,12 @@ class ExternalDocument extends Response
      * @access	public
      * @param	string	$path		    Document path
      * @param	string	$mime		    Mime path
-     * @param   string  $filename       Filename
-     * @param	string	$disposition	Content disposition
      */
-    public function __construct($path, $mime, $filename, $disposition = 'inline')
+    public function __construct($path, $mime)
     {
-        $headers = get_headers($path, 1);
-		if (!$headers || strpos($headers[0], '200') === false) {
-            throw new FileNotFoundException($path);
-        }
-        
-        //Get filesize from headers
-        $contentLength = $headers['Content-Length'];
-        $filesize = is_array($contentLength) ? end($contentLength) : $contentLength;
-
         $this->path = $path;
         $this->mime = $mime;
-        $this->addHeader('Content-Type', $this->mime)
-            ->addHeader('Content-Length', $filesize)
-            ->addHeader('Content-Disposition', "{$disposition}; filename={$filename}");
+        $this->addHeader('Content-Type', $this->mime);
     }
 
     /**
@@ -64,7 +61,26 @@ class ExternalDocument extends Response
     {
         $message = $this->messages[$this->code];
         header("{$this->protocol} {$this->code} {$message}");
-        readfile($this->path);
+        $request = Request::get($this->path, [
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_RETURNTRANSFER => false,
+        ]);
+        $request->headerfunction(function ($ch, $header) {
+            if (
+                stripos($header, "Content-Type") !== false ||
+                stripos($header, "Content-Length") !== false ||
+                stripos($header, "Accept-Ranges") !== false
+            ) {
+                header($header, false);
+            }
+            return strlen($header);
+        });
+        $request->writefunction(function ($ch, $data) {
+            echo $data;
+            return strlen($data);
+        });
+        $request->execRaw();
         exit();
     }
 }

@@ -4,8 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c591813857b3f77d79a616e08d6edc5",
-    "packages": [],
+    "content-hash": "aa1635ccc656af607ed3f2304af5204c",
+    "packages": [
+        {
+            "name": "izisaurio/lite-request",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/izisaurio/lite-request.git",
+                "reference": "643e6ac6aeb2d3102840d1d41dd810de2c701793"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/izisaurio/lite-request/zipball/643e6ac6aeb2d3102840d1d41dd810de2c701793",
+                "reference": "643e6ac6aeb2d3102840d1d41dd810de2c701793",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LiteRequest\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "izisaurio",
+                    "email": "izi.isaac@gmail.com"
+                }
+            ],
+            "description": "A simple PHP requester",
+            "support": {
+                "issues": "https://github.com/izisaurio/lite-request/issues",
+                "source": "https://github.com/izisaurio/lite-request/tree/1.0.5"
+            },
+            "time": "2025-06-17T23:39:25+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "smarty/smarty",
