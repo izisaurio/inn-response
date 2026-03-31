@@ -9,5 +9,9 @@
 	<h1>Saludos de {$name}</h1>
 
 	<p>Thanks for using my library</p>
+
+	<p>
+		<a href="/csv.php">Donwload test csv</a>
+	</p>
 </body>
 </html>
